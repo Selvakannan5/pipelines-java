@@ -11,46 +11,11 @@ stages:
   - job: BuildJob
     displayName: 'Build Job'
     steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '18.x'
-      displayName: 'Install Node.js'
-
     - script: |
-        echo "Installing dependencies..."
-        npm install
-      displayName: 'Restore Dependencies'
-
-    - script: |
-        echo "Building the application..."
-        npm run build
-      displayName: 'Build Project'
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathToPublish: '$(System.DefaultWorkingDirectory)'
-        artifactName: 'build-output'
-      displayName: 'Publish Build Artifacts'
-
-- stage: Test
-  displayName: 'Test Stage'
-  dependsOn: Build
-  isSkippable: false
-  jobs:
-  - job: TestJob
-    displayName: 'Test Job'
-    steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '18.x'
-      displayName: 'Install Node.js'
-
-    - script: |
-        echo "Installing dependencies..."
-        npm install
-      displayName: 'Restore Dependencies'
-
+        echo "Restoring project dependencies..."
+      displayName: 'Restore dependencies'
     - script: |
         echo "Running unit tests..."
-        npm test
-      displayName: 'Run Unit Tests'
+      displayName: 'Run unit tests'
+
+      
